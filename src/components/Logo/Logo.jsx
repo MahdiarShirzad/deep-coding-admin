@@ -1,15 +1,12 @@
 import React from "react";
-import logo from "../../assets/images/general/logo.png";
-import { Link } from "react-router-dom";
-import logoSm from "../../assets/images/general/logo-title.png";
+import logo from "../../assets/images/general/logo-pure-white.svg";
 
 const Logo = () => {
   return (
-    <Link to="/">
-      <div>
-        <img className="w-[140px] h-auto max-lg:hidden" src={logo} alt="Logo" />
-      </div>
-    </Link>
+    <div className=" font-iransans flex items-center justify-center gap-2 mt-4 text-white text-xl font-bold">
+      <p>deep-coding</p>
+      <img className="w-[60px] h-[60px]  " src={logo} alt="Logo" />
+    </div>
   );
 };
 

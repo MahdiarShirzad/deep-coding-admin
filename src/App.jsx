@@ -35,12 +35,12 @@ function App() {
         {/* Protected Admin Panel Routes */}
         {isAuthenticated ? (
           <Route path="/admin-panel" element={<Panel />}>
-            <Route path="dashboard" element={<Dashboard />} />
-            <Route path="blogs" element={<ManageBlogs />} />
-            <Route path="courses" element={<ManageCourses />} />
-            <Route path="books" element={<ManageBooks />} />
-            <Route path="teachers" element={<ManageTeachers />} />
-            <Route path="users" element={<ManageUsers />} />
+            <Route path="/admin-panel/dashboard" element={<Dashboard />} />
+            <Route path="/admin-panel/blogs" element={<ManageBlogs />} />
+            <Route path="/admin-panel/courses" element={<ManageCourses />} />
+            <Route path="/admin-panel/books" element={<ManageBooks />} />
+            <Route path="/admin-panel/teachers" element={<ManageTeachers />} />
+            <Route path="/admin-panel/users" element={<ManageUsers />} />
           </Route>
         ) : (
           <Route path="*" element={<Navigate to="/login" />} />
