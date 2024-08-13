@@ -9,6 +9,7 @@ import ManageTeachers from "../screens/Panel/ManageTeachers";
 import ManageUsers from "../screens/Panel/ManageUsers";
 import Login from "../screens/Login/Login";
 import { Navigate } from "react-router-dom";
+import Dashboard from "../screens/Panel/Dashboard";
 
 const routes = [
   {
@@ -23,6 +24,10 @@ const routes = [
       </ProtectedRoute>
     ),
     children: [
+      {
+        element: <Dashboard />,
+        path: "dashboard",
+      },
       {
         element: <ManageBooks />,
         path: "books",

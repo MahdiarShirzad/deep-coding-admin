@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Logo from "../Logo/Logo";
 import HeaderNav from "./HeaderNav";
-import HeaderLeft from "./HeaderLeft";
 import MobileNav from "./MobileNav";
-import AOS from "aos";
-import "aos/dist/aos.css";
 import logoSm from "../../assets/images/general/logo-title.png";
 
 const Header = () => {
@@ -22,12 +19,6 @@ const Header = () => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
-  useEffect(() => {
-    AOS.init({
-      duration: 800, // Specify the animation duration
-      once: true, // Only play the animation once
-    });
   }, []);
 
   return (
@@ -51,7 +42,7 @@ const Header = () => {
         </div>
         <Logo />
         <HeaderNav />
-        <HeaderLeft />
+        {/* <HeaderLeft /> */}
       </div>
     </div>
   );
