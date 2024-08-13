@@ -5,7 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Provider } from "react-redux";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import store from "./features/store";
-import RouteProvider from "./routes/RouteProvider";
+import App from "./App";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -20,8 +20,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
       <Provider store={store}>
-        {/* <App /> */}
-        <RouteProvider />
+        <App />
       </Provider>
     </QueryClientProvider>
   </React.StrictMode>

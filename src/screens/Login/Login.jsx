@@ -3,8 +3,8 @@ import * as yup from "yup";
 
 import logo from "../../assets/images/general/logo.png";
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import { toast } from "react-toastify";
 import { useLogin } from "./useLogin";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const { login, isError } = useLogin();
