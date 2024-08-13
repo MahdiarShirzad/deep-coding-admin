@@ -1,3 +1,5 @@
+import { useMutation } from "@tanstack/react-query";
+import { login as loginApi } from "../../services/apiAuth";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../features/userSlice";
@@ -6,19 +8,18 @@ export function useLogin() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const login = ({ email, password }) => {
-    if (email === "admin@gmail.com" && password === "admin123") {
-      // Simulate setting user data
-      const userData = { email, name: "Admin" };
-      dispatch(setUser(userData));
-      localStorage.setItem("session", JSON.stringify(userData));
-
+  const {
+    mutate: login,
+    isPending,
+    isError,
+  } = useMutation({
+    mutationFn: ({ email, password }) => loginApi({ email, password }),
+    onSuccess: (data) => {
+      dispatch(setUser(data));
+      localStorage.setItem("session", JSON.stringify(data.session));
       navigate("/admin-panel/dashboard");
-      return { success: true };
-    } else {
-      return { success: false };
-    }
-  };
+    },
+  });
 
-  return { login };
+  return { login, isPending, isError };
 }

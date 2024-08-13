@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import { useLogin } from "./useLogin";
 
 const Login = () => {
-  const { login } = useLogin();
+  const { login, isError } = useLogin();
   const [passwordIsVisible, setPasswordIsVisible] = useState(false);
 
   const validation = yup.object().shape({
@@ -25,14 +25,14 @@ const Login = () => {
       return;
     }
 
-    const result = login({ email, password });
+    login({ email, password });
 
-    if (result.success) {
+    if (!isError) {
       toast.success("با موفقیت وارد شدید !", {
         position: "top-center",
       });
     } else {
-      toast.error("اطلاعات وارد شده نادرست است", {
+      toast.error("خطا در ورود !", {
         position: "top-center",
       });
     }
