@@ -1,5 +1,14 @@
-function Layout() {
-  return <div>Layout</div>;
+import Footer from "../components/Footer/Footer";
+import Header from "../components/Header/Header";
+
+function Layout({ children }) {
+  return (
+    <>
+      <Header />
+      {children}
+      <Footer />
+    </>
+  );
 }
 
 export default Layout;
