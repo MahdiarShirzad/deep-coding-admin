@@ -1,5 +1,5 @@
 function Panel() {
-  return <div>Panel</div>;
+  return <div>Admin Panel</div>;
 }
 
 export default Panel;
