@@ -35,8 +35,8 @@ const Pagination = ({
   }
 
   return (
-    <div className="container flex font-yekanReg flex-col items-center mx-auto mt-10">
-      <ul className="flex gap-2 mt-7">
+    <div className="container flex font-yekanReg flex-col items-center ">
+      <ul className="flex gap-2 mt-">
         <li
           onClick={scrollToTop}
           className="border-1 w-5 h-8 bg-blue-200 hover:bg-cyan-700 text-sm font-bold flex items-center justify-center rounded-md"

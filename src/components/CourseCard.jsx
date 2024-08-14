@@ -1,22 +1,33 @@
 import React from "react";
 import moment from "moment-jalaali";
+import { deleteCourse } from "../services/apiCourses";
 
-function CourseCard({ course }) {
+function CourseCard({ course, onDelete }) {
   const formattedDate = moment(course?.created_at).format("jYYYY/jMM/jDD");
-
   const price = course?.price === 0 ? "رایگان " : course?.price;
+
+  const handleDelete = async () => {
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this course?"
+    );
+    if (confirmed) {
+      await deleteCourse(course.id);
+      onDelete(course.id); // Notify the parent component to remove the deleted course
+    }
+  };
 
   return (
     <div className="flex items-center w-full justify-between my-3 px-3 border-b py-1">
       <img className="w-14 h-14 rounded-md" src={course?.img} alt="" />
-      <h1 className="font-semibold  w-[250px]">{course?.name}</h1>
-      <p className="w-[100px] text-center ">{course?.teacher}</p>
+      <h1 className="font-semibold w-[250px]">{course?.name}</h1>
+      <p className="w-[100px] text-center">{course?.teacher}</p>
       <p>{formattedDate}</p>
-      <div className="text-sm flex gap-1 w-[120px] ">
+      <div className="text-sm flex gap-1 w-[120px]">
         <p>{price}</p>
         {course?.price !== 0 && <p>تومان</p>}
       </div>
-      <button>
+
+      <button onClick={handleDelete}>
         <svg
           className="w-5"
           viewBox="0 0 24 24"
