@@ -1,11 +1,13 @@
 import React from "react";
 import Logo from "../Logo/Logo";
 import { NavLink } from "react-router-dom";
+import toast from "react-hot-toast";
+import { useLogout } from "../../screens/Login/useLogout";
 
 const activeClass = ({ isActive }) =>
   isActive
-    ? ` flex item-center gap-2  px-3 py-1  rounded-md max-md:text-xs`
-    : "   px-3 py-1 rounded-md flex item-center gap-2 max-md:text-xs";
+    ? "bg-slate-500  px-3 py-1 flex gap-1 rounded-md"
+    : "   px-3 py-1 rounded-md flex gap-1";
 
 const sidebarLinks = [
   {
@@ -247,14 +249,29 @@ const sidebarLinks = [
         </g>
       </svg>
     ),
-    label: "کاریران",
+    label: "کاربران",
     path: "users",
   },
 ];
 
 const Sidebar = () => {
+  const { logout, isError } = useLogout();
+
+  const handleLogout = () => {
+    logout();
+    if (!isError) {
+      toast.success("با موفقیت خارج شدید!", {
+        position: "top-center",
+      });
+    } else {
+      toast.error("خطا در خروج !", {
+        position: "top-center",
+      });
+    }
+  };
+
   return (
-    <div className="bg-slate-900 w-[300px] h-full">
+    <div className="bg-slate-900 w-[300px] h-full relative">
       <Logo />
       <ul className=" text-white flex flex-col gap-5 px-4 mt-8">
         {sidebarLinks.map((link) => (
@@ -263,6 +280,84 @@ const Sidebar = () => {
           </NavLink>
         ))}
       </ul>
+
+      <button
+        onClick={handleLogout}
+        className=" absolute right-5 w-24 bottom-10 gap-2 flex items-center text-red-600 max-sm:text-xs"
+      >
+        <svg
+          className=" w-[25px] max-sm:w-[20px]"
+          viewBox="0 0 24 24"
+          version="1.1"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          fill="#000000"
+        >
+          <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+          <g
+            id="SVGRepo_tracerCarrier"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          ></g>
+          <g id="SVGRepo_iconCarrier">
+            {" "}
+            <title>Session-Leave</title>{" "}
+            <g
+              id="Page-1"
+              stroke="none"
+              stroke-width="1"
+              fill="none"
+              fill-rule="evenodd"
+            >
+              {" "}
+              <g id="Session-Leave">
+                {" "}
+                <rect
+                  id="Rectangle"
+                  fill-rule="nonzero"
+                  x="0"
+                  y="0"
+                  width="24"
+                  height="24"
+                >
+                  {" "}
+                </rect>{" "}
+                <line
+                  x1="9"
+                  y1="12"
+                  x2="19"
+                  y2="12"
+                  id="Path"
+                  stroke="#de1b1b"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                >
+                  {" "}
+                </line>{" "}
+                <path
+                  d="M16,8 L18.5858,10.5858 C19.3668,11.3668 19.3668,12.6332 18.5858,13.4142 L16,16"
+                  id="Path"
+                  stroke="#de1b1b"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                >
+                  {" "}
+                </path>{" "}
+                <path
+                  d="M16,4 L6,4 C4.89543,4 4,4.89543 4,6 L4,18 C4,19.1046 4.89543,20 6,20 L16,20"
+                  id="Path"
+                  stroke="#de1b1b"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                >
+                  {" "}
+                </path>{" "}
+              </g>{" "}
+            </g>{" "}
+          </g>
+        </svg>
+        <p>خروج</p>
+      </button>
     </div>
   );
 };

@@ -14,3 +14,7 @@
   /* transition: 0.5s; */
   font-family: iransans;
 }
+
+.staticNumbers {
+  grid-template-columns: repeat(auto-fit, minmax(150px, 220px));
+}

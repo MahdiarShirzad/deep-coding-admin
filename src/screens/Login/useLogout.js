@@ -3,7 +3,7 @@ import { logout as logoutApi } from "../../services/apiAuth";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { clearUser } from "../../features/userSlice";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 
 export function useLogout() {
   const navigate = useNavigate();
