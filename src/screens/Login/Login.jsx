@@ -25,14 +25,20 @@ const Login = () => {
       return;
     }
 
-    login({ email, password });
+    if (email === "admin@gmail.com") {
+      login({ email, password });
 
-    if (!isError) {
-      toast.success("با موفقیت وارد شدید !", {
-        position: "top-center",
-      });
+      if (!isError) {
+        toast.success("با موفقیت وارد شدید !", {
+          position: "top-center",
+        });
+      } else {
+        toast.error("خطا در ورود !", {
+          position: "top-center",
+        });
+      }
     } else {
-      toast.error("خطا در ورود !", {
+      toast.error("اطلاعات کاربری نادرست است", {
         position: "top-center",
       });
     }
