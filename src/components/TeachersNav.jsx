@@ -1,13 +1,13 @@
 import React from "react";
 import SortingCourses from "./SortingCourses";
 
-const CourseNav = ({ courses, setPosts, posts }) => {
+const TeachersNav = ({ posts, setPosts, teachers }) => {
   return (
     <div className=" w-full bg-gray-200 h-16 rounded-lg px-4 py-3 flex justify-between">
       <div className=" flex bg-white w-3/5 h-10 rounded-md px-2 justify-between items-center ">
         <input
           className=" w-full focus: outline-none focus:outline-none placeholder:text-gray-500 text-gray-500"
-          placeholder="جستوجوی دوره ..."
+          placeholder="جستوجوی استاد ..."
           type="text"
         />
         <button>
@@ -40,12 +40,12 @@ const CourseNav = ({ courses, setPosts, posts }) => {
       </div>
 
       <div className="relative inline-block text-left">
-        {posts && courses && (
-          <SortingCourses setPosts={setPosts} posts={posts} items={courses} />
+        {posts && teachers && (
+          <SortingCourses setPosts={setPosts} posts={posts} items={teachers} />
         )}
       </div>
     </div>
   );
 };
 
-export default CourseNav;
+export default TeachersNav;

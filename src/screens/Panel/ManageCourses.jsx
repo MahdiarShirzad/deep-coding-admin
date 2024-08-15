@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import CourseCard from "../../components/CourseCard";
 import Pagination from "../../components/Pagination";
 import AddCourseModal from "../../components/AddCourseModal";
+import EditCourseModal from "../../components/EditCourseModal";
 
 function ManageCourses() {
   const {
@@ -26,9 +27,21 @@ function ManageCourses() {
   const currentPosts = posts?.slice(indexOfFirstPost, indexOfLastPost);
 
   const [modalIsVisible, setModalIsVisible] = useState(false);
+  const [editModalVisible, setEditModalVisible] = useState(false);
+  const [selectedCourse, setSelectedCourse] = useState(null);
 
   const modalVisibilityHandler = () => {
     setModalIsVisible(!modalIsVisible);
+  };
+
+  const editModalHandler = (course) => {
+    setSelectedCourse(course);
+    setEditModalVisible(true);
+  };
+
+  const closeEditModal = () => {
+    setEditModalVisible(false);
+    setSelectedCourse(null);
   };
 
   useEffect(() => {
@@ -48,11 +61,18 @@ function ManageCourses() {
             <p className="w-[100px]">استاد دوره</p>
             <p className="w-[100px]">تاریخ انتشار</p>
             <p className="w-[100px]">قیمت دوره</p>
-            <p className="w-[100px]">حذف دوره</p>
+            <p className="w-[100px]">عملیات</p>
           </div>
           <div className="min-h-[452px]">
             {currentPosts.map((post) => (
-              <CourseCard course={post} key={post.id} />
+              <CourseCard
+                course={post}
+                key={post.id}
+                onDelete={() =>
+                  setPosts((prev) => prev.filter((p) => p.id !== post.id))
+                }
+                onEdit={editModalHandler}
+              />
             ))}
           </div>
         </div>
@@ -72,11 +92,11 @@ function ManageCourses() {
               xmlns:sketch="http://www.bohemiancoding.com/sketch/ns"
               fill="#000000"
             >
-              <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+              <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
               <g
                 id="SVGRepo_tracerCarrier"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               ></g>
               <g id="SVGRepo_iconCarrier">
                 {" "}
@@ -85,15 +105,15 @@ function ManageCourses() {
                 <g
                   id="Page-1"
                   stroke="none"
-                  stroke-width="1"
+                  strokeWidth="1"
                   fill="none"
-                  fill-rule="evenodd"
-                  sketch:type="MSPage"
+                  fillRule="evenodd"
+                  sketchType="MSPage"
                 >
                   {" "}
                   <g
                     id="Icon-Set-Filled"
-                    sketch:type="MSLayerGroup"
+                    sketchType="MSLayerGroup"
                     transform="translate(-362.000000, -1037.000000)"
                     fill="#2d1daa"
                   >
@@ -101,7 +121,7 @@ function ManageCourses() {
                     <path
                       d="M390,1049 L382,1049 L382,1041 C382,1038.79 380.209,1037 378,1037 C375.791,1037 374,1038.79 374,1041 L374,1049 L366,1049 C363.791,1049 362,1050.79 362,1053 C362,1055.21 363.791,1057 366,1057 L374,1057 L374,1065 C374,1067.21 375.791,1069 378,1069 C380.209,1069 382,1067.21 382,1065 L382,1057 L390,1057 C392.209,1057 394,1055.21 394,1053 C394,1050.79 392.209,1049 390,1049"
                       id="plus"
-                      sketch:type="MSShapeGroup"
+                      sketchType="MSShapeGroup"
                     >
                       {" "}
                     </path>{" "}
@@ -123,7 +143,11 @@ function ManageCourses() {
           )}
         </div>
       </div>
+
       {modalIsVisible && <AddCourseModal onClose={modalVisibilityHandler} />}
+      {editModalVisible && selectedCourse && (
+        <EditCourseModal course={selectedCourse} onClose={closeEditModal} />
+      )}
     </>
   );
 }

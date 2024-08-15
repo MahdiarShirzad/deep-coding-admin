@@ -29,3 +29,17 @@ export async function addCourse(courseData) {
 
   return data;
 }
+
+export async function updateCourses(id, updatedData) {
+  const { data, error } = await supabase
+    .from("courses")
+    .update(updatedData)
+    .eq("id", id);
+
+  if (error) {
+    console.error("Error updating teacher:", error);
+    throw error;
+  }
+
+  return data;
+}
