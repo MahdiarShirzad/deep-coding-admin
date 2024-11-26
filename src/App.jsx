@@ -19,7 +19,6 @@ function App() {
     <BrowserRouter>
       <Toaster />
       <Routes>
-        {/* Redirect from root to login if not authenticated */}
         <Route
           path="/"
           element={
@@ -30,9 +29,7 @@ function App() {
             )
           }
         />
-        {/* Login Route */}
         <Route path="/login" element={<Login />} />
-        {/* Protected Admin Panel Routes */}
         {isAuthenticated ? (
           <Route path="/admin-panel" element={<Panel />}>
             <Route path="/admin-panel/dashboard" element={<Dashboard />} />

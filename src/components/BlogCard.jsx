@@ -34,7 +34,7 @@ const BlogCard = ({ blog }) => {
         onClick={handleDelete}
         className=" bg-red-300 text-red-700 mt-3 text-sm px-3 py-1 rounded-lg"
       >
-        حذف دوره
+        حذف بلاگ
       </button>
     </div>
   );
