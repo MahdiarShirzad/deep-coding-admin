@@ -6,7 +6,7 @@ import BlogCard from "../../components/BlogCard";
 import Pagination from "../../components/Pagination";
 import AddBlogModal from "../../components/AddBlogModal";
 
-function ManageBlogs() {
+function ManageBlogs() { 
   const {
     data: blogs,
     isPending: blogLoading,

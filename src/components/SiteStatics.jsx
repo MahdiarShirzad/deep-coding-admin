@@ -50,7 +50,7 @@ export const SiteStatics = ({ courses, books, blogs, teachers }) => {
         </svg>
       </div>
       <div className=" bg-indigo-900 rounded-xl text-white justify-between px-14 items-center gap-4 h-[130px] flex text-lg font-semibold">
-        <p>{teachers?.length} بلاگ</p>
+        <p>{blogs?.length} بلاگ</p>
         <svg
           class="w-12"
           version="1.1"

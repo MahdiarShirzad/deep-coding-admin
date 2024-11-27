@@ -20,22 +20,27 @@ const BlogCard = ({ blog }) => {
   };
 
   return (
-    <div className="font-iransans w-[190px]  border-2 border-gray-400 rounded-lg py-2 px-3">
+    <div className="font-iransans w-[230px]  border-2 border-gray-400 rounded-lg py-2 px-3 h-[260px]">
       <img
         className="w-[100px] h-[100px] mx-auto rounded-lg"
         src={blog?.img}
         alt={blog.name}
       />
       <div className=" mt-2">
-        <p className="  text-zinc-700 text-sm font-semibold">{blog?.name}</p>
-        <p className="mt-1 text-xs text-zinc-500">{blog?.category}</p>
+        <p className="  text-zinc-700 text- font-semibold">{blog?.name}</p>
+        <p className="mt-1 text-sm text-zinc-500">{blog?.category}</p>
       </div>
-      <button
-        onClick={handleDelete}
-        className=" bg-red-300 text-red-700 mt-3 text-sm px-3 py-1 rounded-lg"
-      >
-        حذف بلاگ
-      </button>
+      <div className=" flex items-center gap-1 mt-2 justify-center">
+        <button
+          onClick={handleDelete}
+          className=" bg-red-300 text-red-700 mt-3 text-sm px-3 py-1 rounded-lg"
+        >
+          حذف بلاگ
+        </button>
+        <button className=" bg-green-300 text-green-700 mt-3 text-sm px-3 py-1 rounded-lg">
+          ویرایش بلاگ
+        </button>
+      </div>
     </div>
   );
 };
