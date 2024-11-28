@@ -52,38 +52,34 @@ const AddCourseModal = ({ onClose }) => {
   const handleSubmit = async (values, { resetForm }) => {
     let formattedTopics = [];
 
-    // Ensure topics is a valid JSON array
     try {
       if (values.topics && values.topics.trim() !== "") {
         formattedTopics = JSON.parse(values.topics);
-
-        // Make sure that it's an array
         if (!Array.isArray(formattedTopics)) {
           throw new Error("Topics must be a JSON array.");
         }
       }
     } catch (error) {
       console.error("Error parsing topics JSON:", error);
-      formattedTopics = []; // Default to empty array if there's an error
+      formattedTopics = [];
     }
 
-    // Prepare the course data for submission
     const courseData = {
       ...values,
-      topics: formattedTopics, // Ensure topics is a valid JSON array
-      introduction: quillValues.introduction, // Keep the raw HTML content
-      desc: quillValues.desc, // Keep the raw HTML content
-      willLearn: quillValues.willLearn, // Keep the raw HTML content
-      requirements: quillValues.requirements, // Keep the raw HTML content
+      topics: formattedTopics,
+      introduction: quillValues.introduction,
+      desc: quillValues.desc,
+      willLearn: quillValues.willLearn,
+      requirements: quillValues.requirements,
     };
 
     try {
-      await addCourse(courseData); // Submit the data to Supabase
+      await addCourse(courseData);
       toast.success("دوره با موفقیت افزوده شد", {
         position: "top-center",
       });
       resetForm();
-      onClose(); // Close the modal after adding the course
+      onClose();
     } catch (error) {
       toast.error("خطا در افزودن دوره", {
         position: "top-center",
@@ -112,13 +108,11 @@ const AddCourseModal = ({ onClose }) => {
           onSubmit={handleSubmit}
         >
           <Form>
-            {/* Course Fields */}
             {[
               { label: "نام دوره:", name: "name", type: "text" },
               { label: "عکس دوره:", name: "img", type: "text" },
               { label: "دسته بندی دوره:", name: "category", type: "text" },
               { label: "قیمت دوره:", name: "price", type: "number" },
-              { label: "سطح دوره:", name: "level", type: "text" },
               { label: "زمان دوره:", name: "time", type: "text" },
               { label: "نمره دوره:", name: "star", type: "number" },
               { label: "استاد دوره:", name: "teacher", type: "text" },
@@ -141,6 +135,28 @@ const AddCourseModal = ({ onClose }) => {
               </div>
             ))}
 
+            {/* Dropdown for Course Level */}
+            <div className="flex items-center gap-3 mt-2">
+              <label htmlFor="level">سطح دوره:</label>
+              <Field
+                as="select"
+                className="border-2 px-2 py-1 rounded-lg text-gray-800 w-[300px]"
+                name="level"
+                id="level"
+              >
+                <option value="">انتخاب کنید</option>
+                <option value="مقدماتی">مقدماتی</option>
+                <option value="متوسط">متوسط</option>
+                <option value="پیشرفته">پیشرفته</option>
+                <option value="همه سطوح">همه سطوح</option>
+              </Field>
+              <ErrorMessage
+                name="level"
+                component="div"
+                className="text-red-500"
+              />
+            </div>
+
             {/* Rich Text Editors */}
             {[
               { label: "متن معرفی دوره:", field: "introduction" },
@@ -159,7 +175,6 @@ const AddCourseModal = ({ onClose }) => {
               </div>
             ))}
 
-            {/* Submit Button */}
             <div className="flex justify-end mt-8">
               <button
                 type="submit"
