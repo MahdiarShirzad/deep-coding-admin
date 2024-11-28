@@ -1,19 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import ReactQuill from "react-quill";
 import * as yup from "yup";
 import toast from "react-hot-toast";
-import { addBlog } from "../services/apiBlogs";
-import "react-quill/dist/quill.snow.css"; // Import React Quill styles
-
-const initialValues = {
-  name: "",
-  category: "",
-  img: "",
-  summary: "",
-  star: "",
-  text: "",
-};
+import { updateBlogs } from "../services/apiBlogs";
 
 const validationSchema = yup.object().shape({
   name: yup.string().required("نام بلاگ الزا می است"),
@@ -28,14 +17,10 @@ const validationSchema = yup.object().shape({
     .nullable()
     .min(0, "نمره باید بزرگتر یا مساوی 0 باشد")
     .max(5, "نمره باید کوچکتر یا مساوی 5 باشد"),
-  // text: yup.string().test("not-empty", "متن بلاگ الزامی است", (value) => {
-  //   return value && value.replace(/<(.|\n)*?>/g, "").trim().length > 0;
-  // }),
+  text: yup.string().required("متن بلاگ الزامی است"),
 });
 
-const AddBlogModal = ({ onClose }) => {
-  const [editorValue, setEditorValue] = useState("");
-
+const EditBlogModal = ({ blog, onClose }) => {
   const handleOverlayClick = (e) => {
     if (e.target.id === "modal-overlay") {
       onClose();
@@ -44,15 +29,14 @@ const AddBlogModal = ({ onClose }) => {
 
   const handleSubmit = async (values, { resetForm }) => {
     try {
-      const blogData = { ...values, text: editorValue }; // Include editor content
-      await addBlog(blogData);
-      toast.success("بلاگ با موفقیت افزوده شد", {
+      await updateBlogs(blog.id, values);
+      toast.success("بلاگ با موفقیت ویرایش شد", {
         position: "top-center",
       });
       resetForm();
       onClose();
     } catch (error) {
-      toast.error("خطا در افزودن بلاگ", {
+      toast.error("خطا در ویرایش بلاگ", {
         position: "top-center",
       });
     }
@@ -62,7 +46,7 @@ const AddBlogModal = ({ onClose }) => {
     <div
       id="modal-overlay"
       onClick={handleOverlayClick}
-      className="fixed inset-0 z-[10000] flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm "
+      className="fixed inset-0 z-[10000] flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm"
     >
       <div className="w-[800px] h-[600px] bg-white rounded-lg shadow-lg relative p-5 overflow-y-auto px-11">
         <button
@@ -71,14 +55,21 @@ const AddBlogModal = ({ onClose }) => {
         >
           &times;
         </button>
-        <p className="text-xl font-bold mb-4">افزودن بلاگ</p>
+        <p className="text-xl font-bold mb-4">ویرایش بلاگ</p>
 
         <Formik
-          initialValues={initialValues}
+          initialValues={{
+            name: blog.name || "",
+            category: blog.category || "",
+            img: blog.img || "",
+            summary: blog.summary || "",
+            star: blog.star || 0,
+            text: blog.text || "",
+          }}
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
         >
-          {({ values, handleChange, setFieldValue }) => (
+          {({ values, handleChange }) => (
             <Form>
               {/* Blog Name */}
               <div className="flex items-center gap-3 mt-4">
@@ -165,20 +156,16 @@ const AddBlogModal = ({ onClose }) => {
                 />
               </div>
 
-              {/* Text Field (React Quill) */}
+              {/* Text Field */}
               <div className="flex items-start gap-3 mt-2">
                 <label htmlFor="text">متن بلاگ:</label>
-                <div className="border-2 rounded-lg text-gray-800 w-[600px] min-h-[200px]">
-                  <ReactQuill
-                    value={editorValue}
-                    onChange={(content) => {
-                      setEditorValue(content);
-                      setFieldValue("text", content);
-                    }}
-                  />
-                </div>
-              </div>
-              <div className="px-28 mt-2">
+                <Field
+                  as="textarea"
+                  className="border-2 px-2 py-1 rounded-lg text-gray-800 w-[600px] h-[200px]"
+                  name="text"
+                  id="text"
+                  placeholder="متن بلاگ"
+                />
                 <ErrorMessage
                   name="text"
                   component="div"
@@ -192,7 +179,7 @@ const AddBlogModal = ({ onClose }) => {
                   type="submit"
                   className="bg-sky-200 px-3 py-2 text-blue-900 font-semibold rounded-lg hover:bg-sky-300"
                 >
-                  افزودن بلاگ
+                  ویرایش بلاگ
                 </button>
               </div>
             </Form>
@@ -203,4 +190,4 @@ const AddBlogModal = ({ onClose }) => {
   );
 };
 
-export default AddBlogModal;
+export default EditBlogModal;

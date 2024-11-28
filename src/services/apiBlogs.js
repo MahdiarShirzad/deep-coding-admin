@@ -9,6 +9,21 @@ export async function getBlogs() {
 
   return data;
 }
+
+export async function updateBlogs(id, updatedData) {
+  const { data, error } = await supabase
+    .from("blogs")
+    .update(updatedData)
+    .eq("id", id);
+
+  if (error) {
+    console.error("Error updating Blog:", error);
+    throw error;
+  }
+
+  return data;
+}
+
 export async function deleteBlog(id) {
   const { error } = await supabase.from("blogs").delete().eq("id", id);
 

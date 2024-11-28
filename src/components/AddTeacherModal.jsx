@@ -8,7 +8,6 @@ const initialValues = {
   name: "",
   avatar: "",
   speciality: "",
-  courses: "",
   about: "",
 };
 
@@ -16,7 +15,6 @@ const validationSchema = yup.object().shape({
   name: yup.string().required("نام استاد الزامی است"),
   avatar: yup.string().required("آواتار استاد الزامی است"),
   speciality: yup.string().required("تخصص استاد الزامی است"),
-  courses: yup.string(), // Optional, not required
   about: yup.string().required("بیوگرافی استاد الزامی است"),
 });
 
@@ -29,12 +27,7 @@ const AddTeacherModal = ({ onClose }) => {
 
   const handleSubmit = async (values, { resetForm }) => {
     try {
-      // Convert courses from a comma-separated string to an array, or set to null if empty
-      const coursesArray = values.courses
-        ? values.courses.split(",").map((id) => id.trim())
-        : null;
-
-      const teacherData = { ...values, courses: coursesArray };
+      const teacherData = { ...values };
 
       await addTeacher(teacherData);
       toast.success("استاد با موفقیت افزوده شد", {
@@ -116,23 +109,6 @@ const AddTeacherModal = ({ onClose }) => {
               />
               <ErrorMessage
                 name="speciality"
-                component="div"
-                className="text-red-500"
-              />
-            </div>
-
-            {/* Courses (comma-separated) */}
-            <div className="flex items-center gap-3 mt-2">
-              <label htmlFor="courses">آی‌دی دوره‌ها (اختیاری):</label>
-              <Field
-                className="border-2 px-2 py-1 rounded-lg text-gray-800 w-[300px]"
-                type="text"
-                name="courses"
-                id="courses"
-                placeholder="مثال: 10, 11, 12"
-              />
-              <ErrorMessage
-                name="courses"
                 component="div"
                 className="text-red-500"
               />

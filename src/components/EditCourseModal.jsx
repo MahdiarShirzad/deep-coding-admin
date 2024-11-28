@@ -16,6 +16,9 @@ const validationSchema = yup.object().shape({
   video: yup.string().required("ویدیو معرفی دوره الزامی است"),
   introduction: yup.string().required("متن معرفی دوره الزامی است"),
   desc: yup.string().required("توضیحات دوره الزامی است"),
+  willLearn: yup.string().required("موارد آموزشی الزامی است"),
+  requirements: yup.string().required("پیش‌نیازها الزامی است"),
+  topics: yup.string().required("عناوین دوره الزامی است"),
 });
 
 const EditCourseModal = ({ course, onClose }) => {
@@ -68,200 +71,100 @@ const EditCourseModal = ({ course, onClose }) => {
             video: course.video || "",
             introduction: course.introduction || "",
             desc: course.desc || "",
+            willLearn: course.willLearn || "",
+            requirements: course.requirements || "",
+            topics: course.topics || "",
           }}
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
         >
-          <Form>
-            {/* Course Name */}
-            <div className="flex items-center gap-3 mt-4">
-              <label htmlFor="name">نام دوره:</label>
-              <Field
-                className="border-2 px-2 py-1 rounded-lg text-gray-800 w-[300px]"
-                type="text"
-                name="name"
-                id="name"
-                placeholder="نام دوره"
-              />
-              <ErrorMessage
-                name="name"
-                component="div"
-                className="text-red-500"
-              />
-            </div>
-            {/* Image URL */}
-            <div className="flex items-center gap-3 mt-2">
-              <label htmlFor="img">عکس دوره:</label>
-              <Field
-                className="border-2 px-2 py-1 rounded-lg text-gray-800 w-[300px]"
-                type="text"
-                name="img"
-                id="img"
-                placeholder="عکس دوره"
-              />
-              <ErrorMessage
-                name="img"
-                component="div"
-                className="text-red-500"
-              />
-            </div>
-            {/* Category */}
-            <div className="flex items-center gap-3 mt-2">
-              <label htmlFor="category">دسته بندی دوره:</label>
-              <Field
-                className="border-2 px-2 py-1 rounded-lg text-gray-800 w-[300px]"
-                type="text"
-                name="category"
-                id="category"
-                placeholder="دسته بندی دوره"
-              />
-              <ErrorMessage
-                name="category"
-                component="div"
-                className="text-red-500"
-              />
-            </div>
-            {/* Price */}
-            <div className="flex items-center gap-3 mt-2">
-              <label htmlFor="price">قیمت دوره:</label>
-              <Field
-                className="border-2 px-2 py-1 rounded-lg text-gray-800 w-[300px]"
-                type="number"
-                name="price"
-                id="price"
-                placeholder="قیمت دوره"
-              />
-              <ErrorMessage
-                name="price"
-                component="div"
-                className="text-red-500"
-              />
-            </div>
-            {/* Level */}
-            <div className="flex items-center gap-3 mt-2">
-              <label htmlFor="level">سطح دوره:</label>
-              <Field
-                className="border-2 px-2 py-1 rounded-lg text-gray-800 w-[300px]"
-                type="text"
-                name="level"
-                id="level"
-                placeholder="سطح دوره"
-              />
-              <ErrorMessage
-                name="level"
-                component="div"
-                className="text-red-500"
-              />
-            </div>
-            {/* Time */}
-            <div className="flex items-center gap-3 mt-2">
-              <label htmlFor="time">زمان دوره:</label>
-              <Field
-                className="border-2 px-2 py-1 rounded-lg text-gray-800 w-[300px]"
-                type="text"
-                name="time"
-                id="time"
-                placeholder="زمان دوره"
-              />
-              <ErrorMessage
-                name="time"
-                component="div"
-                className="text-red-500"
-              />
-            </div>
-            {/* Star Rating */}
-            <div className="flex items-center gap-3 mt-2">
-              <label htmlFor="star">نمره دوره:</label>
-              <Field
-                className="border-2 px-2 py-1 rounded-lg text-gray-800 w-[300px]"
-                type="number"
-                name="star"
-                id="star"
-                placeholder="نمره دوره"
-              />
-              <ErrorMessage
-                name="star"
-                component="div"
-                className="text-red-500"
-              />
-            </div>
-            {/* Teacher */}
-            <div className="flex items-center gap-3 mt-2">
-              <label htmlFor="teacher">استاد دوره:</label>
-              <Field
-                className="border-2 px-2 py-1 rounded-lg text-gray-800 w-[300px]"
-                type="text"
-                name="teacher"
-                id="teacher"
-                placeholder="استاد دوره"
-              />
-              <ErrorMessage
-                name="teacher"
-                component="div"
-                className="text-red-500"
-              />
-            </div>
-            {/* Video URL */}
-            <div className="flex items-center gap-3 mt-2">
-              <label htmlFor="video">ویدیو معرفی دوره:</label>
-              <Field
-                className="border-2 px-2 py-1 rounded-lg text-gray-800 w-[300px]"
-                type="text"
-                name="video"
-                id="video"
-                placeholder="ویدیو معرفی دوره"
-              />
-              <ErrorMessage
-                name="video"
-                component="div"
-                className="text-red-500"
-              />
-            </div>
-            {/* Introduction */}
-            <div className="flex items-start gap-3 mt-2">
-              <label htmlFor="introduction">متن معرفی دوره:</label>
-              <Field
-                className="border-2 px-2 py-1 rounded-lg text-gray-800 w-[600px] h-[200px]"
-                as="textarea"
-                name="introduction"
-                id="introduction"
-                placeholder="متن معرفی دوره"
-              />
-            </div>
-            <div className="px-28 mt-2">
-              <ErrorMessage
-                name="introduction"
-                component="div"
-                className="text-red-500"
-              />
-            </div>
-            {/* Description */}
-            <div className="flex items-start gap-3 mt-2">
-              <label htmlFor="desc">توضیحات دوره:</label>
-              <Field
-                className="border-2 px-2 py-1 rounded-lg text-gray-800 w-[600px] h-[200px]"
-                as="textarea"
-                name="desc"
-                id="desc"
-                placeholder="توضیحات دوره"
-              />
-            </div>
-            <div className="px-28 mt-2">
-              <ErrorMessage
-                name="desc"
-                component="div"
-                className="text-red-500"
-              />
-            </div>
+          {() => (
+            <Form>
+              {/* Regular Inputs */}
+              {[
+                { label: "نام دوره:", name: "name", type: "text" },
+                { label: "عکس دوره:", name: "img", type: "text" },
+                { label: "دسته بندی دوره:", name: "category", type: "text" },
+                { label: "قیمت دوره:", name: "price", type: "number" },
+                { label: "زمان دوره:", name: "time", type: "text" },
+                { label: "نمره دوره:", name: "star", type: "number" },
+                { label: "استاد دوره:", name: "teacher", type: "text" },
+                { label: "ویدیو معرفی دوره:", name: "video", type: "text" },
+              ].map(({ label, name, type }) => (
+                <div className="flex items-center gap-3 mt-2" key={name}>
+                  <label htmlFor={name}>{label}</label>
+                  <Field
+                    className="border-2 px-2 py-1 rounded-lg text-gray-800 w-[300px]"
+                    type={type}
+                    name={name}
+                    id={name}
+                    placeholder={label}
+                  />
+                  <ErrorMessage
+                    name={name}
+                    component="div"
+                    className="text-red-500"
+                  />
+                </div>
+              ))}
 
-            {/* Submit Button */}
-            <button
-              type="submit"
-              className="bg-blue-500 text-white px-4 py-2 rounded-lg mt-4 hover:bg-blue-600"
-            >
-              ذخیره تغییرات
-            </button>
-          </Form>
+              {/* Dropdown for Course Level */}
+              <div className="flex items-center gap-3 mt-2">
+                <label htmlFor="level">سطح دوره:</label>
+                <Field
+                  as="select"
+                  className="border-2 px-2 py-1 rounded-lg text-gray-800 w-[300px]"
+                  name="level"
+                  id="level"
+                >
+                  <option value="">انتخاب کنید</option>
+                  <option value="مقدماتی">مقدماتی</option>
+                  <option value="متوسط">متوسط</option>
+                  <option value="پیشرفته">پیشرفته</option>
+                  <option value="همه سطوح">همه سطوح</option>
+                </Field>
+                <ErrorMessage
+                  name="level"
+                  component="div"
+                  className="text-red-500"
+                />
+              </div>
+
+              {/* Textareas for Long Inputs */}
+              {[
+                { label: "متن معرفی دوره:", name: "introduction" },
+                { label: "توضیحات دوره:", name: "desc" },
+                { label: "موارد آموزشی:", name: "willLearn" },
+                { label: "پیش‌نیازها:", name: "requirements" },
+                { label: "عناوین دوره:", name: "topics" },
+              ].map(({ label, name }) => (
+                <div className="mt-4" key={name}>
+                  <label htmlFor={name}>{label}</label>
+                  <Field
+                    as="textarea"
+                    className="border-2 px-2 py-1 rounded-lg text-gray-800 w-full min-h-[100px]"
+                    name={name}
+                    id={name}
+                    placeholder={label}
+                  />
+                  {/* <ErrorMessage
+                    name={name}
+                    component="div"
+                    className="text-red-500"
+                  /> */}
+                </div>
+              ))}
+
+              <div className="flex justify-end mt-8">
+                <button
+                  type="submit"
+                  className="bg-sky-200 px-3 py-2 text-blue-900 font-semibold rounded-lg hover:bg-sky-300"
+                >
+                  تغییر دوره
+                </button>
+              </div>
+            </Form>
+          )}
         </Formik>
       </div>
     </div>
